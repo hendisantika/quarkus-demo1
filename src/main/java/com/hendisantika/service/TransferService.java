@@ -1,9 +1,12 @@
 package com.hendisantika.service;
 
+import com.hendisantika.model.Transfer;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,4 +22,8 @@ import javax.transaction.Transactional;
 public class TransferService {
     @Inject
     EntityManager em;
+
+    public List<Transfer> findAll() {
+        return em.createQuery("select t from Transfer t", Transfer.class).getResultList();
+    }
 }
