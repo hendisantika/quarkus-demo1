@@ -1,5 +1,6 @@
 package com.hendisantika.service;
 
+import com.hendisantika.dto.TransferDto;
 import com.hendisantika.model.Transfer;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -25,5 +26,16 @@ public class TransferService {
 
     public List<Transfer> findAll() {
         return em.createQuery("select t from Transfer t", Transfer.class).getResultList();
+    }
+
+    public Long create(TransferDto transferDto) {
+        Transfer transfer = new Transfer();
+        transfer.setAccountFrom(transferDto.getAccountFrom());
+        transfer.setAccountTo(transferDto.getAccountTo());
+        transfer.setAmount(transferDto.getAmount());
+        transfer.setTransferDate(new Date());
+        em.persist(transfer);
+
+        return transfer.getId();
     }
 }
